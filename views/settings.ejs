@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title id="titleSetting">الأعدادات</title>
+    <link rel="shortcut icon" href="<%=urlMain %>/img/stisla-fill.svg" />
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="<%=urlMain %>/modules/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=urlMain %>/css/bootstrap3.3.7/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=urlMain %>/modules/fontawesome/css/all.min.css">
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="<%=urlMain %>/modules/jqvmap/dist/jqvmap.min.css">
+    <link rel="stylesheet" href="<%=urlMain %>/modules/summernote/summernote-bs4.css">
+    <link rel="stylesheet" href="<%=urlMain %>/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="<%=urlMain %>/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="<%=urlMain %>/modules/datatables/datatables.min.css">
+    <link rel="stylesheet" href="<%=urlMain %>/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<%=urlMain %>/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="<%=urlMain %>/css/style.css">
+    <link rel="stylesheet" href="<%=urlMain %>/css/components.css">
+    <link rel="stylesheet" href="<%=urlMain %>/css/rtl.css">
+
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar">
+                <form class="form-inline ml-auto">
+                    <ul class="navbar-nav ml-3">
+                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                    </ul>
+                </form>
+                <ul class="navbar-nav navbar-right">
+
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <img alt="image" src="<%=urlMain %>/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+                            <div class="d-sm-none d-lg-inline-block">مرحباً , <%=name %> </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right text-right">
+                            <div class="dropdown-title text-center"> </div>
+                            <a href="/api/dashboard/settingPage" class="dropdown-item has-icon">
+                                <span>پروفایل</span>
+                                <i class="far fa-user"></i>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+                            <a href="/api/user/logout" class="dropdown-item has-icon text-danger">
+                                <span>خروج</span>
+                                <i class="fas fa-sign-out-alt"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="main-sidebar sidebar-style-2">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand">
+                        <a href="/api/dashboard/dashboardPage">أ/ إبراهيم سنجر</a>
+                    </div>
+
+                    <ul class="sidebar-menu">
+                        <li class="menu-header">لوحة التحكم</li>
+                        <li>
+                            <a href="/api/dashboard/dashboardPage" class="nav-link"><i class="fas fa-fire"></i><span>إحصائيات و فواتير</span></a>
+                        </li>
+
+                        <li>
+                            <a href="/api/dashboard/itemsPage" class="nav-link"><i class="fas fa-list-alt"></i><span> كل العناصر</span></a>
+                        </li>
+                        <li class="active">
+                            <a href="/api/dashboard/settingPage" class="nav-link"><i class="fas fa-user-cog"></i><span>الأعدادات</span></a>
+                        </li>
+                    </ul>
+
+                </aside>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-header">
+                        <h1>إعدادات الأدمين</h1>
+                        <div class="section-header-breadcrumb">
+                            <div class="breadcrumb-item active"><a href="/api/dashboard/dashboardPage">لوحة التحكم</a></div>
+                            <div class="breadcrumb-item">إعدادات الأدمين </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div section-body>
+                            <h2 class="section-title" style="direction: rtl; ">مرحباً ,
+                                <%=name %>
+                            </h2>
+
+
+                            <p class="section-lead" style="direction: rtl;">
+                                يمكنك تعديل بياناتك من خلال هذة الصفحة
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-sm-4 mt-5">
+                        <div class="col-12 col-md-12 col-lg-5">
+                            <div class="card profile-widget">
+                                <div class="profile-widget-header">
+                                    <img alt="image" src="<%=urlMain %>/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
+
+                                    <div class="profile-widget-items">
+                                        <div class="profile-widget-item">
+                                            <div class="profile-widget-item-label">الفواتير</div>
+                                            <div class="profile-widget-item-value" id="allInvoice">
+
+                                            </div>
+                                        </div>
+                                        <div class="profile-widget-item">
+                                            <div class="profile-widget-item-label">فواتير يومية </div>
+                                            <div class="profile-widget-item-value" id="allTodayInvoice"></div>
+                                        </div>
+                                        <div class="profile-widget-item">
+                                            <div class="profile-widget-item-label">فواتير شهرية </div>
+                                            <div class="profile-widget-item-value" id="AllMonthyInvoice"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="profile-widget-description">
+                                    <div class="profile-widget-name">
+                                        <div class="text-muted d-inline font-weight-normal">
+                                            أدمن
+                                            <div class="slash"></div>
+                                        </div>
+                                        <%=name %>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-7">
+                            <div class="card ">
+                                <form class="needs-validation" id="FormSettingInfo" novalidate="">
+                                    <div class="card-header">
+                                        <h4>تعديل البروفيل</h4>
+                                    </div>
+                                    <div class="card-body panel-body" style="direction: rtl;">
+                                        <label class="control-label pull-right"><u>معلومات شخصية</u></label><br><br>
+                                        <div class="row">
+                                            <div class="form-group col-md-6 col-12">
+                                                <label class="control-label pull-right">الأسم</label>
+                                                <input type="text" class="form-control" name="name" id="name" required=" " value="<%= name %>">
+                                                <input type="text" class="form-control" name="admin_id" id="admin_id" required=" " value="<%= admin_id %>" hidden>
+                                                <div class="invalid-feedback ">
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 col-12 ">
+                                                <label class="control-label pull-right ">الأميل</label>
+                                                <input type="email " class="form-control " value="<%=email %> " name="email" id="email" required=" ">
+                                                <div class="invalid-feedback ">
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row ">
+
+                                            <div class="form-group col-md-6 col-12 ">
+                                                <label class="control-label" style="float: right;">الهاتف</label>
+                                                <input type="tel " class="form-control " name="phone" id="phone" value="<%=phone %>">
+                                            </div>
+                                            <div class="form-group col-md-6 col-12 ">
+                                                <label class="control-label" style="float: right;">كلمة السر</label>
+                                                <input type="password" class="form-control " id="password" name="password" required="">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="card-footer text-right ">
+                                            <input type="submit" name="button" class="btn btn-primary" value="حفظ التغيير" \>
+                                        </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+            </div>
+            <footer class="main-footer ">
+                <div class="footer-left ">
+                    Copyright &copy; 2022
+                    <div class="bullet"></div> Developed by <a href="https://www.facebook.com/Ahmano99/ ">Ahmed Mamdouh </a>
+                </div>
+                <div class="footer-right ">
+
+                </div>
+            </footer>
+        </div>
+    </div>
+
+
+
+
+    <!-- General JS Scripts -->
+    <script src="<%=urlMain %>/modules/jquery.min.js"></script>
+    <script src="<%=urlMain %>/modules/popper.js"></script>
+    <script src="<%=urlMain %>/modules/tooltip.js"></script>
+    <script src="<%=urlMain %>/modules/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=urlMain %>/modules/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="<%=urlMain %>/modules/moment.min.js"></script>
+    <script src="<%=urlMain %>/js/stisla.js"></script>
+
+
+    <!-- JS Libraries -->
+    <script src="<%=urlMain %>/modules/jquery.sparkline.min.js"></script>
+    <script src="<%=urlMain %>/modules/chart.min.js"></script>
+    <script src="<%=urlMain %>/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
+    <script src="<%=urlMain %>/modules/summernote/summernote-bs4.js"></script>
+    <script src="<%=urlMain %>/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+    <script src="<%=urlMain %>/modules/datatables/datatables.min.js"></script>
+    <script src="<%=urlMain %>/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="<%=urlMain %>/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+    <script src="<%=urlMain %>/modules/jquery-ui/jquery-ui.min.js"></script>
+
+
+
+    <!-- Template JS File -->
+    <script src="<%=urlMain %>/js/scripts.js"></script>
+    <script src="<%=urlMain %>/js/custom.js"></script>
+
+    <script src="<%=urlMain %>/js/main.js"></script>
+    <script src="<%=urlMain %>/js/hullabaloo.js"></script>
+    <script src="<%=urlMain %>/js/popper.min.js"></script>
+
+
+
+
+</body>
+
+</html>

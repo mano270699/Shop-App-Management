@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title id="title">لوحة التحكم</title>
+    <link rel="shortcut icon" href="<%=urlMain %>/img/stisla-fill.svg" />
+
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="<%=urlMain %>/modules/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=urlMain %>/modules/fontawesome/css/all.min.css">
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="<%=urlMain %>/modules/jqvmap/dist/jqvmap.min.css">
+    <link rel="stylesheet" href="<%=urlMain %>/modules/summernote/summernote-bs4.css">
+    <link rel="stylesheet" href="<%=urlMain %>/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="<%=urlMain %>/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="<%=urlMain %>/modules/datatables/datatables.min.css">
+    <link rel="stylesheet" href="<%=urlMain %>/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<%=urlMain %>/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="<%=urlMain %>/css/style.css">
+    <link rel="stylesheet" href="<%=urlMain %>/css/components.css">
+    <link rel="stylesheet" href="<%=urlMain %>/css/rtl.css">
+    <link rel="stylesheet" href="<%=urlMain %>/css/rlt.datatables.css">
+    <link rel="stylesheet" href="<%=urlMain %>/css/select2.min.css">
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-94034622-3');
+    </script>
+
+    <style>
+        tr td {
+            text-align: center;
+        }
+        
+        tr th {
+            text-align: center;
+        }
+        
+        .dataTables_scrollHeadInner,
+        .table {
+            width: 100%!important;
+        }
+        
+        div.dataTables_wrapper {
+            direction: rtl;
+            width: 100% !important;
+        }
+        
+        .modal-bodys {
+            height: 400px;
+            overflow: hidden;
+        }
+        
+        .modal-bodys:hover {
+            overflow-y: auto;
+        }
+        
+        .fade {
+            opacity: 1;
+            -webkit-transaction: opacity 1s linear;
+            transaction: opacity 1s linear;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar">
+                <form class="form-inline ml-auto">
+                    <ul class="navbar-nav ml-3">
+                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                    </ul>
+
+                </form>
+                <ul class="navbar-nav navbar-right">
+
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <img alt="image" src="<%=urlMain %>/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+                            <div class="d-sm-none d-lg-inline-block">مرحباً , <%=name %> </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right text-right">
+                            <div class="dropdown-title text-center"> </div>
+                            <a href="/api/dashboard/settingPage" class="dropdown-item has-icon">
+                                <span>پروفایل</span>
+                                <i class="far fa-user"></i>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+                            <a href="/api/user/logout" class="dropdown-item has-icon text-danger">
+                                <span>خروج</span>
+                                <i class="fas fa-sign-out-alt"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="main-sidebar sidebar-style-2">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand">
+                        <a href="/api/dashboard/dashboardPage">أ/ إبراهيم سنجر</a>
+                    </div>
+
+                    <ul class="sidebar-menu">
+                        <li class="menu-header">لوحة التحكم</li>
+                        <li class="active">
+                            <a href="/api/dashboard/dashboardPage" class="nav-link"><i class="fas fa-fire"></i><span>إحصائيات و فواتير</span></a>
+                        </li>
+
+                        <li>
+                            <a href="/api/dashboard/itemsPage" class="nav-link"><i class="fas fa-list-alt"></i><span> كل العناصر</span></a>
+                        </li>
+                        <li>
+                            <a href="/api/dashboard/settingPage" class="nav-link"><i class="fas fa-user-cog"></i><span>الأعدادات</span></a>
+                        </li>
+                    </ul>
+
+                </aside>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                            <div class="card card-statistic-1 text-right">
+                                <div class="card-icon bg-primary">
+                                    <i class="far fa-user"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>تعداد المستخدمين</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        1
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                            <div class="card card-statistic-1 text-right">
+                                <div class="card-icon bg-danger">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>احصائيات يومية</h4>
+                                    </div>
+                                    <div class="card-body" id="totalToday">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                            <div class="card card-statistic-1 text-right">
+                                <div class="card-icon bg-warning">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>احصائيات شهرية</h4>
+                                    </div>
+                                    <div class="card-body" id="totalMonthly">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                            <div class="card card-statistic-1 text-right">
+                                <div class="card-icon bg-success">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4> احصائيات سنوية </h4>
+                                    </div>
+                                    <div class="card-body" id="totalYear">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                            <a href="#" class="btn btn-icon icon-left btn-primary mb-5" data-toggle="modal" data-target="#LargeInvoice"><i class="fas fa-plus-circle"></i> إضافة فاتورة</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>الفواتير</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <div id="table-1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <table class="table table-striped dataTable no-footer" id="TableDashboardData" role="grid" aria-describedby="table-1_info">
+                                                        <thead>
+                                                            <tr role="row">
+                                                                <th class="text-center sorting_asc" tabindex="0" aria-controls="TableDashboardData" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
+                                        #
+                                      : activate to sort column descending" style="width: 35.875px;">
+                                                                    #
+                                                                </th>
+                                                                <th class="sorting" tabindex="0" aria-controls="TableDashboardData" rowspan="1" colspan="1" aria-label="Task Name: activate to sort column ascending" style="width: 179.85px;">الاسم</th>
+                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 96.1875px;">التاريخ</th>
+                                                                <th class="sorting" tabindex="0" aria-controls="TableDashboardData" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 93.525px;">التفاصيل</th>
+                                                                <th class="sorting" tabindex="0" aria-controls="TableDashboardData" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 93.525px;">الأكشن</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <footer class="main-footer">
+                <div class="footer-left">
+                    Copyright &copy; 2022
+                    <div class="bullet"></div> Developed by <a href="https://www.facebook.com/Ahmano99/">Ahmed Mamdouh </a>
+                </div>
+                <div class="footer-right">
+
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!--Start Modal-->
+    <!--Invoice Modal-->
+    <div class="modal fade bd-example-modal-lg modal-dialog-scrollable" id="LargeInvoice" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <h5 class="modal-title" id="exampleModalLabel"> إنشاء فاتورة </h5>
+
+                </div>
+                <form id="FormaddInvoice">
+                    <div class=" modal-bodys modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-6 col-12">
+                                <label for="recipient-name" style="float: right;" class="col-form-label">اسم الفاتورة</label>
+                                <input type="text" class="form-control" id="_InvoiceName">
+                            </div>
+                            <div class="form-group col-md-6 col-12 ">
+                                <label style="float: right;" class="col-form-label">إختر المنتج</label>
+                                <select class="js-example-data-array" name="states[]" multiple="multiple" id="myselect2">
+                                   
+                                  </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class=" table tablemodalinvoice table-striped dataTable no-footer" id="TableData" role="grid" aria-describedby="table-1_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="text-center sorting_asc" tabindex="0" aria-controls="TableData" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
+                    #
+                  : activate to sort column descending" style="width: 35.875px;">
+                                                #
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="TableData" rowspan="1" colspan="1" aria-label="Task Name: activate to sort column ascending" style="width: 96.1875px;">المنتج</th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 96.1875px;">الكمية</th>
+                                            <th class="sorting" tabindex="0" aria-controls="TableData" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 94px;">السعر</th>
+
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width:96.1875px; ">الخصم</th>
+
+
+                                            <th class="sorting" tabindex="0" aria-controls="TableData" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 93.525px;">السعر بعد الخصم</th>
+                                            <th class="sorting" tabindex="0" aria-controls="TableData" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 93.525px;">الإجمالي</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabledody">
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary ml-3" style="float: right;" data-dismiss="modal">إلغاء</button>
+                        <input type="submit" id="btnSubmit" class="btn btn-primary" value="إنشاء">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--Remove Modal-->
+    <div class="modal fade" id="ActionRemoveInvoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">حذف فاتورة </h5>
+
+                </div>
+                <form id="FormRemoveInvoice">
+                    <div class="modal-body">
+                        <h6 style="float: right;">هل انت متأكد من خذف هذة الفاتورة ؟</h6>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary ml-3" style="float: right;" data-dismiss="modal">إلغاء</button>
+                        <input type="submit" class="btn btn-danger" value="حذف">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- General JS Scripts -->
+    <script src="<%=urlMain %>/modules/jquery.min.js"></script>
+    <script src="<%=urlMain %>/modules/popper.js"></script>
+    <script src="<%=urlMain %>/modules/tooltip.js"></script>
+    <script src="<%=urlMain %>/modules/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=urlMain %>/modules/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="<%=urlMain %>/modules/moment.min.js"></script>
+    <script src="<%=urlMain %>/js/stisla.js"></script>
+
+    <!-- JS Libraies -->
+    <script src="<%=urlMain %>/modules/datatables/datatables.min.js"></script>
+    <script src="<%=urlMain %>/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="<%=urlMain %>/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+    <script src="<%=urlMain %>/modules/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- JS Libraies -->
+    <script src="<%=urlMain %>/modules/jquery.sparkline.min.js"></script>
+    <script src="<%=urlMain %>/modules/chart.min.js"></script>
+    <script src="<%=urlMain %>/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
+    <script src="<%=urlMain %>/modules/summernote/summernote-bs4.js"></script>
+    <script src="<%=urlMain %>/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+    <script src="<%=urlMain %>/js/select2.min.js"></script>
+
+    <!-- Template JS File -->
+    <script src="<%=urlMain %>/js/scripts.js"></script>
+    <script src="<%=urlMain %>/js/custom.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#LargeInvoice').modal('handleUpdate');
+            var itemList = [];
+            //  var item = {};
+            $.get("http://127.0.0.1:3000/api/dashboard/getAllItems", function(data, status) {
+                // console.log(data.length);
+                for (var cat = 0; cat < data.length; cat++) {
+                    var item = {};
+                    item['text'] = data[cat].item_name;
+                    item['id'] = data[cat].item_id;
+                    item['price'] = data[cat].price;
+                    // console.log(data[cat].item_name + data[cat].item_id);
+                    itemList.push(item);
+
+                }
+                // console.log(itemList);
+                $(".js-example-data-array").select2({
+
+                    data: itemList
+                })
+                var idcount = 0;
+
+                $('#myselect2').on('select2:select', function(e) {
+                    console.log(idcount);
+                    var data = e.params.data;
+                    var count = $("#myselect2 :selected").length;
+                    $('#TableData').append('<tr id=' + data.id + '> <td id="rowId">' + data.id + '</td><td id="rowText"> ' + data.text + '</td><td><input type="text" name="qty" class="form-control qty" value="" id="_InvoiceQuantity' + data.id + '"> </td><td> <input type="text" class="form-control price" name="price" value=' + data.price + ' readonly class="form-control" id="_InvoicePrice' + data.id + '">   </td><td><input type="text" class="form-control discount" placeholder="%" id="_InvoiceDiscount' + data.id + '"> </td><td><input type="text" class="form-control priceAfter"  id="_InvoicePriceAfterDiscount' + data.id + '"> </td><td> <input type="text" class="form-control total" value="" id="_InvoiceTotal' + data.id + '">   </td></tr>');
+                    idcount++;
+                    // $(".js-example-data-array").change(function() {
+                    //alert($($("#TableData").find("tbody")).children().length);
+                    var tb = $('.tablemodalinvoice:eq(0) tbody');
+                    var size = tb.find("tr").length;
+                    console.log("Number of rows : " + size);
+
+                    tb.find("tr").each(function(index, element) {
+                        var colSize = $(element).find('td').length;
+                        console.log("  Number of cols in row " + (index + 1) + " : " + colSize);
+                        var i = index;
+                        var textID = "";
+                        $(element).find('td').each(function(index, element) {
+                            console.log(i)
+                            var colVal = $(element).text();
+                            if (index == 0) {
+                                textID = colVal.trim();
+                            } else if (index == 2) {
+                                //  textQyt = $("_InvoiceQuantity" + i).val()
+
+                                $("#_InvoiceQuantity" + textID).on({
+                                    keyup: function() {
+                                        var qty = $(this).val();
+
+                                        document.getElementById("_InvoicePriceAfterDiscount" + textID).value = document.getElementById("_InvoicePrice" + textID).value;
+                                        var price = Number(document.getElementById("_InvoicePriceAfterDiscount" + textID).value);
+                                        var totalprice = Number(qty * price).toFixed(2);
+                                        document.getElementById("_InvoiceTotal" + textID).value = totalprice;
+                                        //  $("#_InvoicePriceAfterDiscount"+i).val(PriceAfterDiscount);
+                                    },
+
+                                    focus: function() {
+                                        var qty = $(this).val();
+                                        document.getElementById("_InvoicePriceAfterDiscount" + textID).value = document.getElementById("_InvoicePrice" + textID).value;
+                                        var price = Number(document.getElementById("_InvoicePriceAfterDiscount" + textID).value);
+                                        var totalprice = Number(qty * price).toFixed(2);
+                                        document.getElementById("_InvoiceTotal" + textID).value = totalprice;
+                                    }
+
+
+                                });
+
+                            } else if (index == 4) {
+
+
+
+
+
+                                $("#_InvoiceDiscount" + textID).on({
+                                    keyup: function() {
+                                        var Discount = $(this).val();
+                                        var Price = Number(document.getElementById("_InvoicePrice" + textID).value);
+                                        var PriceAfterDiscount = Number(Price - (Price * (Discount / 100))).toFixed(2);
+                                        document.getElementById("_InvoicePriceAfterDiscount" + textID).value = PriceAfterDiscount;
+                                        document.getElementById("_InvoiceTotal" + textID).value = PriceAfterDiscount * document.getElementById("_InvoiceQuantity" + textID).value;
+
+                                        //  $("#_InvoicePriceAfterDiscount"+i).val(PriceAfterDiscount);
+                                    },
+
+                                    focus: function() {
+                                        var Discount = $(this).val();
+                                        var Price = Number(document.getElementById("_InvoicePrice" + textID).value);
+                                        var PriceAfterDiscount = Number(Price - (Price * (Discount / 100))).toFixed(2);
+
+                                        document.getElementById("_InvoicePriceAfterDiscount" + textID).value = PriceAfterDiscount;
+                                        document.getElementById("_InvoiceTotal" + textID).value = PriceAfterDiscount * document.getElementById("_InvoiceQuantity" + textID).value;
+
+                                    }
+
+
+
+                                });
+
+
+
+
+
+
+
+                            }
+
+                        });
+                        //   });
+
+                    });
+
+
+
+
+
+                });
+                $('.js-example-data-array').on("select2:unselect", function(e) {
+                    // console.log(e.params.data.id);
+                    // idcount--;
+                    console.log(idcount);
+                    $("#" + e.params.data.id).closest('tr').remove();
+
+
+
+                });
+
+            });
+
+
+        });
+    </script>
+
+
+
+    <script src="<%=urlMain %>/js/main.js"></script>
+    <script src="<%=urlMain %>/js/hullabaloo.js"></script>
+    <script src="<%=urlMain %>/js/popper.min.js"></script>
+
+
+
+</body>
+
+</html>

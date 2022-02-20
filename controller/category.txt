@@ -1,0 +1,362 @@
+ /*---------------------------------Start Category Page---------------------------------*/
+  
+ exports.categoryPage = (req, res) => {
+
+    var url = req.connection.encrypted ? 'https://' : 'http://' + req.hostname + ':' + PORT;
+    if (storage.getItem('token') != null) {
+
+        res.render("category.ejs", {
+            name: storage.getItem('name'),
+            email: storage.getItem('email'),
+            phone: storage.getItem('phone'),
+            urlMain: url
+        });
+    } else {
+        res.render("404.ejs", {
+
+            urlMain: url
+        });
+    }
+
+
+};
+
+exports.getAllCategory = (req, res) => {
+    var url = req.connection.encrypted ? 'https://' : 'http://' + req.hostname + ':' + PORT;
+    if (storage.getItem('token') != null) {
+
+        Category.findAll({
+            // offset: 10,
+            // limit: 10,
+            // conditions
+        }).then(function(category) {
+
+            res.send(category)
+        });
+    } else {
+        res.send({ msg: 'sorry, you aren\'t authorized :(' })
+    }
+};
+exports.addNewCategory = (req, res) => {
+    var url = req.connection.encrypted ? 'https://' : 'http://' + req.hostname + ':' + PORT;
+
+
+    if (storage.getItem('token') != null) {
+        let errors = [];
+        if (errors.length > 0) {
+            return res.status(400).send({ msg: errors });
+        } else {
+            Category.create({ cat_name: req.body.cat_name }).then((newCategory) => {
+                console.log("category added Successfully :)  " + JSON.stringify(newCategory));
+                res.status(200).send({ msg: "تم إضافة الصنف بنجاح" });
+            }).catch((err) => {
+                console.log("Error" + err);
+                res.status(400).send({ msg: "حدث خطأ يرجي إعادة المحاولة " });
+            });
+        }
+
+
+
+
+    } else {
+        res.send({ msg: 'sorry, you aren\'t authorized :(' })
+    }
+};
+
+exports.DeleteCategory = (req, res) => {
+    Category.findAll({ where: { cat_id: req.params.id } }).then((results) => {
+        console.log("Cat :" + JSON.stringify(results));
+        Category.destroy({
+            where: {
+                cat_id: req.params.id
+            }
+        }).then((result) => {
+            console.log(JSON.stringify(result));
+            return res.status(200).send({ msg: "تم حذف الصنف بنجاح" })
+        })
+
+    });
+};
+
+exports.EditCategory = (req, res) => {
+
+    let
+        cat_name = req.body.cat_name,
+        cat_id = req.params.id;
+
+    console.log(cat_name);
+
+    Category.findOne({ where: { cat_id: cat_id } })
+        .then(record => {
+
+            if (!record) {
+                throw new Error('No record found')
+            }
+
+            console.log(`retrieved record ${JSON.stringify(record,null,2)}`)
+
+            let values = {
+                cat_name: cat_name,
+
+            }
+
+            record.update(values).then(updatedRecord => {
+                console.log(`updated record ${JSON.stringify(updatedRecord,null,2)}`)
+                    // login into your DB and confirm update
+                res.status(200).send({ msg: "تم التعديل علي الصنف بنجاح " });
+            })
+
+        })
+        .catch((error) => {
+            // do seomthing with the error
+            res.status(400).send({ msg: "نأسف لعدم اتمام العمليه حاول مرة اخري " });
+            throw new Error(error)
+
+        });
+};
+
+ 
+ 
+ var tableCategory = $('#TableCategoryData').DataTable({
+
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.7/i18n/Arabic.json"
+
+        },
+        "ordering": false,
+        "ajax": {
+            "type": "GET",
+            "url": "" + urlDashBoard + "/api/dashboard/getAllCategory",
+
+            "dataSrc": ""
+        },
+        "columnDefs": [{
+
+                "targets": -1,
+                "data": null,
+                "render": function(data, type, row, meta) {
+
+
+                    var IconActionCat = '<a id="' + row.cat_id + '" href="#ActionEditCategory" class="btn btn-icon btn-primary mb-1"><i class="far fa-edit ml-5"></i></a> ';
+                    IconActionCat += '<a id="' + row.cat_id + '" href="#ActionRemoveCategory" class="btn btn-icon btn-danger mb-1"><i class="far fa-trash-alt"></i></a>';
+
+                    return IconActionCat;
+                }
+
+
+            }, {
+
+                "targets": 0,
+                "data": null,
+                "render": function(data, type, row, meta) {
+                    var thCatID = '<b>' + row.cat_id + '</b>';
+
+
+                    return thCatID;
+                }
+
+
+            },
+            {
+                "targets": 1,
+                "data": null,
+                "render": function(data, type, row, meta) {
+
+
+                    var Cat_name = '<b>' + row.cat_name + '</b>';
+
+
+                    return Cat_name;
+                }
+            },
+
+
+
+
+        ],
+        "columns": [
+            { "data": "cat_id" },
+
+            { "data": "cat_name" },
+
+            { "data": "" }
+
+
+        ]
+
+    });
+
+    var dataModelCategory;
+    $('#TableCategoryData tbody').on('click', '[href="#ActionEditCategory"]', function() {
+        dataModelCategory = tableCategory.row($(this).parents('tr')).data();
+        $("#ActionEditCategory_catName").val(dataModelCategory.cat_name);
+        $('#ActionEditCategory').modal('show');
+    });
+
+    $('#TableCategoryData tbody').on('click', '[href="#ActionRemoveCategory"]', function() {
+        dataModelCategory = tableCategory.row($(this).parents('tr')).data();
+        //  $("#FormRemoveCategory span").text(dataModelCategory.Cat_Name);
+        $('#ActionRemoveCategory').modal('show');
+
+    });
+
+    //Add New Category
+
+    $("#FormAddNewCategory").submit(function(event) {
+        /* Stop form from submitting normally */
+        event.preventDefault();
+        //event.stopPropagation();
+        //$(this).off(event);
+        var txtCategoryName = $('#AddNewCategory_catName').val();
+
+        if (txtCategoryName == '' || txtCategoryName == null) {
+            var hulla = new hullabaloo();
+            hulla.send('خطأ , لا يمكنك ترك الصنف فارغ ', 'danger');
+        } else {
+            var settings = {
+                "url": "http://127.0.0.1:3000/api/dashboard/addNewCategory",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                "data": {
+                    "cat_name": txtCategoryName
+                },
+                success: function(data, textStatus, xhr) {
+
+                    tableCategory.ajax.reload();
+
+                },
+                complete: function(data) {
+                    if (data.status == 200) {
+
+
+                        // hulla.send('Category Added successfully', 'success');
+                        $('#ActionAddCategory').modal('toggle');
+                        tableCategory.ajax.reload();
+                        $("#AddNewCategory_catName").val(null);
+
+                    } else {
+
+                        hulla.send('Errors: ' + data.responseJSON.msg, 'danger');
+
+                    }
+                },
+
+                error: function(xhr, textStatus, error) {
+
+                    hulla.send('Errors: ' + xhr.responseJSON.msg, 'danger');
+                    $('#ActionAddCategory').modal('toggle');
+
+                }
+
+            };
+
+            $.ajax(settings, ).done(function(response) {
+
+                $('#ActionAddCategory').modal('toggle');
+                var hulla = new hullabaloo();
+                hulla.send(response.msg, 'success');
+                $("#AddNewCategory_catName").val(null);
+            });
+        }
+        tableCategory.ajax.reload();
+
+        return false;
+
+
+
+
+
+
+
+    });
+
+    //Remove Category
+    $("#FormRemoveCategory").submit(function(event) {
+
+        /* Stop form from submitting normally */
+        event.preventDefault();
+        //event.stopPropagation();
+        //$(this).off(event);
+
+        var hulla = new hullabaloo();
+
+        $.ajax({
+            url: urlDashBoard + "/api/dashboard/deleteCategory/" + dataModelCategory.cat_id,
+            type: 'DELETE',
+            data: "no data",
+
+            success: function(res, textStatus, xhr) {
+
+
+                console.log("in if:");
+                //table.ajax.reload();
+            },
+            complete: function(data) {
+
+
+                if (data.status == 200) {
+                    hulla.send(data.responseJSON.msg, 'success');
+                    $('#ActionRemoveCategory').modal('toggle');
+                    tableCategory.ajax.reload();
+
+                } else {
+
+                    hulla.send('Errors: ' + data.responseJSON.msg, 'danger');
+
+                }
+            },
+
+            error: function(xhr, textStatus, error) {
+                // hulla.send('Errors: ' + xhr.responseJSON.msg, 'danger');
+                console.log("in if:");
+
+            }
+
+        });
+
+        return false;
+
+    });
+    //Update Category
+    $("#FormEditCategory").submit(function(e) {
+        /* Stop form from submitting normally */
+        e.preventDefault();
+
+        var txtCategoryName = $("#ActionEditCategory_catName").val();
+
+        var FormEditCategory = new FormData();
+
+        FormEditCategory.append("cat_name", txtCategoryName);
+
+        var hulla = new hullabaloo();
+
+        $.ajax({
+            url: urlDashBoard + "/api/dashboard/editCategory/" + dataModelCategory.cat_id,
+            type: 'PUT',
+            data: { "cat_name": txtCategoryName },
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            success: function(data, textStatus, xhr) {
+                //console.log("in success:" + res)
+                hulla.send(data.msg, 'success');
+                $("#ActionCategory_catIcon").val(null);
+                $('#ActionEditCategory').modal('toggle');
+                tableCategory.ajax.reload();
+
+            },
+
+            error: function(xhr, textStatus, error) {
+                console.log("in error:" + xhr)
+                hulla.send('Errors: ' + data.responseJSON.msg, 'danger');
+                tableCategory.ajax.reload();
+
+            }
+
+        });
+
+        tableCategory.ajax.reload();
+
+        return false;
+    });
